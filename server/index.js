@@ -80,5 +80,6 @@ app.get('/api/payments/:id', async (req,res)=>{
 });
 
 // ✅ 关键：不要 listen，而是导出 handler
-module.exports = app;
+module.exports = (req, res) => app(req, res);
+
 

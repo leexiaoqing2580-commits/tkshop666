@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { PrismaClient } = require('@prisma/client');
 const { v4: uuidv4 } = require('uuid');
+
 const prisma = new PrismaClient();
 const app = express();
 app.use(cors());
@@ -39,12 +40,14 @@ app.post('/api/auth/login', async (req,res)=>{
 
 // products list + detail
 app.get('/api/products', async (req,res)=>{
-  const page = parseInt(req.query.page||'1'); const per = parseInt(req.query.per||'24');
+  const page = parseInt(req.query.page||'1'); 
+  const per = parseInt(req.query.per||'24');
   const skip = (page-1)*per;
   const total = await prisma.product.count();
   const items = await prisma.product.findMany({ skip, take: per, orderBy: { id: 'asc' } });
   res.json({ total, items });
 });
+
 app.get('/api/products/:id', async (req,res)=>{
   const id = parseInt(req.params.id);
   const p = await prisma.product.findUnique({ where: { id } });
@@ -68,6 +71,7 @@ app.post('/api/payments/create', async (req,res)=>{
   await prisma.payment.create({ data: { id, method: 'crypto', currency, amount, status: 'pending' } });
   res.json({ id, paymentUrl: `https://fake-pay.local/pay/${id}`, status: 'pending' });
 });
+
 app.get('/api/payments/:id', async (req,res)=>{
   const id = req.params.id;
   const p = await prisma.payment.findUnique({ where: { id } });
@@ -75,5 +79,6 @@ app.get('/api/payments/:id', async (req,res)=>{
   res.json(p);
 });
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, ()=> console.log('Server listening on', PORT));
+// ✅ 关键：不要 listen，而是导出 handler
+module.exports = app;
+

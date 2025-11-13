@@ -5,7 +5,7 @@
     { "src": "server/index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "^/api/(.*)", "dest": "server/index.js" },
+    { "src": "/api/(.*)", "dest": "server/index.js" },
     { "src": "/(.*)", "dest": "client/$1" }
   ],
   "buildCommand": "cd client && npm install && npm run build",

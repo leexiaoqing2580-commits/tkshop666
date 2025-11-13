@@ -1,11 +1,13 @@
 {
   "version": 2,
   "builds": [
-    { "src": "client/package.json", "use": "@vercel/next" },
+    { "src": "client/next.config.js", "use": "@vercel/next" },
     { "src": "server/index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "server/index.js" },
+    { "src": "^/api/(.*)", "dest": "server/index.js" },
     { "src": "/(.*)", "dest": "client/$1" }
-  ]
+  ],
+  "buildCommand": "cd client && npm install && npm run build",
+  "outputDirectory": "client/.next"
 }

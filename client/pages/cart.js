@@ -1,0 +1,2 @@
+import Header from '../components/Header'
+export default function Cart(){ return (<div><Header/><div className='container' style={{paddingTop:18}}><h2>Cart (demo)</h2><p>Add items to cart to demo checkout.</p></div></div>) }

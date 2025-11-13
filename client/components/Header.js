@@ -1,0 +1,2 @@
+import Link from 'next/link'
+export default function Header(){return (<header className='header'><div className='container nav'><div className='logo'>TK Shop</div><nav style={{marginLeft:20}}><Link href='/'><a style={{marginRight:12}}>Home</a></Link><Link href='/category'><a style={{marginRight:12}}>Category</a></Link><Link href='/cart'><a style={{marginRight:12}}>Cart</a></Link><Link href='/seller'><a>Seller</a></Link></nav></div></header>)}

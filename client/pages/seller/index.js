@@ -1,0 +1,2 @@
+import Header from '../../components/Header'
+export default function Seller(){ return (<div><Header/><div className='container' style={{paddingTop:18}}><h2>Seller Dashboard (demo)</h2><p>Apply to become a seller or manage products.</p></div></div>) }

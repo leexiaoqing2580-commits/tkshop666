@@ -1,0 +1,2 @@
+import fetch from 'node-fetch'
+export default async function handler(req,res){ const backend = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000'; const path = req.query.path.join('/'); const url = backend + '/' + path + (req.url.includes('?')?('?'+req.url.split('?')[1]):''); const r = await fetch(url,{method:req.method,headers:{'content-type':'application/json'},body:req.method==='GET'?null:JSON.stringify(req.body)}); const data = await r.json().catch(()=>null); res.status(r.status).json(data||{}); }

@@ -1,0 +1,6 @@
+import Header from '../components/Header'
+import useSWR from 'swr'
+import Link from 'next/link'
+const fetcher = url=>fetch(url).then(r=>r.json())
+export default function Home(){ const { data } = useSWR('/api/proxy/products?page=1&per=12', fetcher); const items = data?.items||[];
+  return (<div><Header/><div className='container' style={{paddingTop:18}}><div style={{display:'flex',gap:18}}><div style={{flex:1}} className='card'><h2>Wooden Buckle Dress Belts</h2><p>Premium selection</p><div className='button'>Shop Now</div></div><div style={{width:320}} className='card'><img src='/placeholder.png' style={{width:'100%'}}/></div></div><h3 style={{marginTop:18}}>Daily Deals</h3><div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12}}>{items.map(i=>(<div key={i.id} className='card'><img src={i.image} style={{width:'100%',height:140,objectFit:'cover'}}/><h4>{i.title}</h4><div style={{color:'var(--accent)'}}>${i.price}</div><Link href={'/product/'+i.id}><a className='button'>View</a></Link></div>))}</div></div></div>) }
